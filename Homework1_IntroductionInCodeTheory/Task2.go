@@ -103,25 +103,26 @@ func GenerateParityCheckMatrix(G [][]int) [][]int {
 
 // Функция за генериране на пораждаща матрица G от проверочна матрица H
 func GenerateGeneratorMatrix(H [][]int) [][]int {
-	n := len(H[0])  // брой колони в H (дължината на кодовата дума)
-	k := n - len(H) // размерност на кода (броя на редовете в G)
+	r := len(H[0]) // Дължина на кодовата дума
+	n := len(H)    // Брой проверяващи уравнения
 
-	// Създаваме празна матрица G с размер k x n
+	k := n - r // Размерност на кода
+
+	// Инициализиране на G с размер k x n
 	G := make([][]int, k)
-	for i := 0; i < k; i++ {
+	for i := range G {
 		G[i] = make([]int, n)
 	}
 
-	// Запълваме G с единична матрица I_k и останалата част от P
-	// I_k частта на G (единичната матрица)
+	// Попълване на I_k (единичната матрица)
 	for i := 0; i < k; i++ {
-		G[i][i] = 1 // Поставяме единици по диагонала
+		G[i][i] = 1
 	}
 
-	// P частта на G (взимаме съответните колони от H)
+	// Попълване на P частта, ако H е в стандартна форма [P^T | I_r]
 	for i := 0; i < k; i++ {
-		for j := 0; j < n-k; j++ {
-			G[i][k+j] = H[i+k][j] // Прехвърляме съответните елементи от H в G
+		for j := 0; j < r-k; j++ {
+			G[i][k+j] = H[j][i] // Взимаме P^T и го "транспонираме"
 		}
 	}
 
@@ -233,7 +234,7 @@ func encodingAlgorithm(G [][]int) []int {
 	}
 
 	// Проверка на дължината на информационния вектор
-	if len(informationVector) != len(G[0]) {
+	if len(informationVector) != len(G) {
 		panic("Грешка: Дължината на информационния вектор не съответства на дължината на кодовата дума.")
 	}
 
@@ -490,14 +491,16 @@ func linearCodes() {
 		// Генерираме проверочната матрица H от G
 		G = readInputMatrix(choice)
 		H = GenerateParityCheckMatrix(G)
+		printMatrix(H)
 	} else if matrixType == "H" || matrixType == "h" {
 		// Генерираме пораждаща матрица G от H
 		H = readInputMatrix(choice)
 		G = GenerateGeneratorMatrix(H)
+		printMatrix(G)
 	} else {
-		fmt.Println("Невалиден тип матрица.")
-		return
+		panic("Невалиден тип матрица.")
 	}
+
 	file.WriteString("\nПораждащата матрица G:\n")
 	writeTofile(G, file)
 	file.WriteString("\nПроверочната матрица H:\n")

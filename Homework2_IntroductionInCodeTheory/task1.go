@@ -54,7 +54,7 @@ func main() {
 	// Тестов вектор за проверка: f(x1, x2) = x1 XOR x2 -> [0, 1, 1, 0]
 	if m == 2 {
 		fmt.Println("\nTesting with example: f(x1, x2) = x1 XOR x2")
-		testVector := []int{0, 1, 1, 0}
+		testVector := []int{0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1}
 		zheg := truthTableToZhegalkin(testVector)
 		reconstructed := zhegalkinToTruthTable(zheg)
 		fmt.Println("Original (truth table):", testVector)

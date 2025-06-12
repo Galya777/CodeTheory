@@ -128,7 +128,7 @@ func encodeRM2(coeffs []int) []int {
 
 func main() {
 	// Пример: f(x1,x2) = x1*x2 + x2
-	coeffs := []int{1, 0, 1, 0}
+	coeffs := []int{1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0}
 	y := encodeRM2(coeffs)
 
 	fmt.Println("Encoded y:  ", y)

@@ -1,4 +1,4 @@
-package Homework3_IntroductionInCodeTheory
+package main
 
 import "fmt"
 

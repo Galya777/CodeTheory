@@ -86,7 +86,7 @@ func encode(u []int, G [][]int) []int {
 }
 
 func main() {
-	r, m := 1, 3 // Пример: RM(1,3)
+	r, m := 2, 5 // Пример: RM(1,3)
 	G := generateRMGeneratorMatrix(r, m)
 
 	fmt.Println("Пораждаща матрица G:")
